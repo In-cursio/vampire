@@ -464,9 +464,30 @@ async def get_bad_files(query, file_type=None, max_results=100, offset=0, filter
 
 async def get_file_details(query):
     filter = {'file_id': query}
-    cursor = Media.find(filter)
+    cursor = Media1.find(filter)
     filedetails = await cursor.to_list(length=1)
-    return filedetails
+    if filedetails:
+        return filedetails
+    cursor_media2 = Media2.find(filter)
+    filedetails_media2 = await cursor_media2.to_list(length=1)
+    if filedetails_media2:
+        return filedetails_media2
+    cursor_media3 = Media3.find(filter)
+    filedetails_media3 = await cursor_media3.to_list(length=1)
+    if filedetails_media3:
+        return filedetails_media3
+    cursor_media5 = Media5.find(filter)
+    filedetails_media5 = await cursor_media5.to_list(length=1)
+    if filedetails_media5:
+        return filedetails_media5
+    cursor_media6 = Media6.find(filter)
+    filedetails_media6 = await cursor_media6.to_list(length=1)
+    if filedetails_media6:
+        return filedetails_media6
+    cursor_media4 = Media4.find(filter)
+    filedetails_media4 = await cursor_media4.to_list(length=1)
+    if filedetails_media4:
+        return filedetails_media4
 
 
 def encode_file_id(s: bytes) -> str:
