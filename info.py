@@ -75,6 +75,12 @@ COMMAND_HAND_LER = ("/")
 
 # MongoDB information
 DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv://maki:maki@cluster0.5zlhzxl.mongodb.net/?retryWrites=true&w=majority")
+DATABASE_URI1 = environ.get('DATABASE_URI1', "")
+DATABASE_URI2 = environ.get('DATABASE_URI2', "")
+DATABASE_URI3 = environ.get('DATABASE_URI3', "")
+DATABASE_URI4 = environ.get('DATABASE_URI4', "")
+DATABASE_URI5 = environ.get('DATABASE_URI5', "")
+DATABASE_URI6 = environ.get('DATABASE_URI6', "")
 DATABASE_NAME = environ.get('DATABASE_NAME', "maki")
 COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
 MONGO_URL = os.environ.get('MONGO_URL', "mongodb+srv://maki:maki@cluster0.2t0eici.mongodb.net/?retryWrites=true&w=majority")
