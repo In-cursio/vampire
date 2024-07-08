@@ -110,8 +110,50 @@ async def index_files(bot, query):
             chat = int(chat)
         except:
             chat = chat
-        await index_files_to_db4(int(lst_msg_id), chat, msg, bot)
+        await index_files_to_db5(int(lst_msg_id), chat, msg, bot)
     elif raju == 'accept5':
+        if lock.locked():
+            return await query.answer('Wait until previous process complete.', show_alert=True)
+        msg = query.message
+
+        await query.answer('Processing...⏳', show_alert=True)
+        if int(from_user) not in ADMINS:
+            await bot.send_message(int(from_user),
+                                   f'Your Submission for indexing {chat} has been accepted by our moderators and will be added soon.',
+                                   reply_to_message_id=int(lst_msg_id))
+        await msg.edit(
+            "Starting Indexing",
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton('Cancel', callback_data='index_cancel')]]
+            )
+        )
+        try:
+            chat = int(chat)
+        except:
+            chat = chat
+        await index_files_to_db6(int(lst_msg_id), chat, msg, bot)
+    elif raju == 'accept6':
+        if lock.locked():
+            return await query.answer('Wait until previous process complete.', show_alert=True)
+        msg = query.message
+
+        await query.answer('Processing...⏳', show_alert=True)
+        if int(from_user) not in ADMINS:
+            await bot.send_message(int(from_user),
+                                   f'Your Submission for indexing {chat} has been accepted by our moderators and will be added soon.',
+                                   reply_to_message_id=int(lst_msg_id))
+        await msg.edit(
+            "Starting Indexing",
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton('Cancel', callback_data='index_cancel')]]
+            )
+        )
+        try:
+            chat = int(chat)
+        except:
+            chat = chat
+        await index_files_to_db4(int(lst_msg_id), chat, msg, bot)
+    elif raju == 'accept7':
         if lock.locked():
             return await query.answer('Wait until previous process complete.', show_alert=True)
         msg = query.message
@@ -185,8 +227,16 @@ async def send_for_index(bot, message):
                                      callback_data=f'index#accept4#{chat_id}#{last_msg_id}#{message.from_user.id}')
             ],
             [
-                InlineKeyboardButton('Index To both DB',
+                InlineKeyboardButton('Index To DB5',
                                      callback_data=f'index#accept5#{chat_id}#{last_msg_id}#{message.from_user.id}')
+            ],
+            [
+                InlineKeyboardButton('Index To DB6',
+                                     callback_data=f'index#accept6#{chat_id}#{last_msg_id}#{message.from_user.id}')
+            ],
+            [
+                InlineKeyboardButton('Index To both DB',
+                                     callback_data=f'index#accept7#{chat_id}#{last_msg_id}#{message.from_user.id}')
             ],
             [
                 InlineKeyboardButton('close', callback_data='close_data'),
@@ -312,7 +362,7 @@ async def index_files_to_db1(lst_msg_id, chat, msg, bot):
                 ttime = now.strftime("%I:%M:%S %p - %d %b, %Y")
                 tru = await check_file(media)
                 if tru == "okda":
-                    aynav, vnay = await save_file2(media) 
+                    aynav, vnay = await save_file(media) 
                     if aynav:
                         total_files += 1
                     elif vnay == 0:
@@ -390,7 +440,7 @@ async def index_files_to_db2(lst_msg_id, chat, msg, bot):
                 ttime = now.strftime("%I:%M:%S %p - %d %b, %Y")
                 tru = await check_file(media)
                 if tru == "okda":
-                    aynav, vnay = await save_file3(media) 
+                    aynav, vnay = await save_file2(media) 
                     if aynav:
                         total_files += 1
                     elif vnay == 0:
@@ -467,7 +517,7 @@ async def index_files_to_db3(lst_msg_id, chat, msg, bot):
                 ttime = now.strftime("%I:%M:%S %p - %d %b, %Y")
                 tru = await check_file(media)
                 if tru == "okda":
-                    aynav, vnay = await save_file4(media) 
+                    aynav, vnay = await save_file3(media) 
                     if aynav:
                         total_files += 1
                     elif vnay == 0:
@@ -544,6 +594,83 @@ async def index_files_to_db4(lst_msg_id, chat, msg, bot):
                 ttime = now.strftime("%I:%M:%S %p - %d %b, %Y")
                 tru = await check_file(media)
                 if tru == "okda":
+                    aynav, vnay = await save_file4(media) 
+                    if aynav:
+                        total_files += 1
+                    elif vnay == 0:
+                        duplicate += 1
+                    elif vnay == 2:
+                        errors += 1
+                else:
+                    duplicate += 1                
+        except Exception as e:
+            logger.exception(e)
+            return await bot.send_message(msg.chat.id, f'<b>🚫 Error:</b> {e}\n\n<b>╭ ▸ ETC: </b>{remaining_time_str} ❙ Remaining:</b> <code>{remaining_index}</code>\n<b>├ ▸ Last Updated: <i>{ttime}</i></b>\n<b>╰ ▸ Time Taken: </b>{elapsed_time_str} <b>\n\n<b>╭ ▸ Fetched:</b> <code>{current}</code>\n<b>├ ▸ Saved:</b> <code>{total_files}</code>\n<b>├ ▸ Duplicate:</b> <code>{duplicate}</code>\n<b>╰ ▸ Non:</b> <code>{no_media}</code>\n')
+        else:
+            await bot.send_message(msg.chat.id, f'<b>✅ Successfully Completed!!</b>\n\n<b>╭ ▸ ETC: </b>{remaining_time_str} ❙ Remaining:</b> <code>{remaining_index}</code>\n<b>├ ▸ Last Updated: <i>{ttime}</i></b>\n<b>╰ ▸ Time Taken: </b>{elapsed_time_str} <b>\n\n<b>╭ ▸ Fetched:</b> <code>{current}</code>\n<b>├ ▸ Saved:</b> <code>{total_files}</code>\n<b>├ ▸ Duplicate:</b> <code>{duplicate}</code>\n<b>╰ ▸ Non:</b> <code>{no_media}</code>\n')
+
+async def index_files_to_db5(lst_msg_id, chat, msg, bot):
+    total_files = 0
+    duplicate = 0
+    no_media = 0
+    fst_msg_id = temp.CURRENT
+    start_time = time.time()
+    remaining_time_str = "N/A"
+    async with lock:
+        try:
+            current = temp.CURRENT
+            tz = pytz.timezone('Asia/Kolkata')
+            today = datetime.date.today()
+            now = datetime.datetime.now(tz)
+            ttime = now.strftime("%I:%M:%S %p - %d %b, %Y")
+            temp.CANCEL = False
+            elapsed_time = 0
+            remaining_index = 0
+            async for message in bot.iter_messages(chat, lst_msg_id, temp.CURRENT):
+                if temp.CANCEL:
+                    await msg.edit(f"<b>❌ Successfully Cancelled!!</b>\n\n<b>├ ▸ Last Updated: <i>{ttime}</i></b>\n\n<b>╭ ▸ Fetched:</b> <code>{current}</code>\n<b>├ ▸ Saved:</b> <code>{total_files}</code>\n<b>├ ▸ Duplicate:</b> <code>{duplicate}</code>\n<b>╰ ▸ Non:</b> <code>{no_media}</code>\n")
+                    break
+                current += 1
+                tz = pytz.timezone('Asia/Kolkata')
+                today = datetime.date.today()
+                now = datetime.datetime.now(tz)
+                ttime = now.strftime("%I:%M:%S %p - %d %b, %Y")
+                if current % 250 == 0:
+                    can = [[InlineKeyboardButton('Cancel', callback_data='index_cancel')]]
+                    reply = InlineKeyboardMarkup(can)
+                    await asyncio.sleep(1)
+                    elapsed_time = time.time() - start_time
+                    remaining_time = (lst_msg_id - current - 1) * elapsed_time / (current - fst_msg_id + 1)
+                    remaining_time_str = get_readable_time(remaining_time)
+                    elapsed_time_str = get_readable_time(elapsed_time)
+                    remaining_index = lst_msg_id - current
+                    await msg.edit_text(
+                        text=f"<b>╭ ▸ ETC: </b>{remaining_time_str} ❙ Remaining:</b> <code>{remaining_index}</code>\n<b>├ ▸ Last Updated: <i>{ttime}</i></b>\n<b>╰ ▸ Time Taken: </b>{elapsed_time_str} <b>\n\n<b>╭ ▸ Fetched:</b> <code>{current}</code>\n<b>├ ▸ Saved:</b> <code>{total_files}</code>\n<b>├ ▸ Duplicate:</b> <code>{duplicate}</code>\n<b>╰ ▸ Non:</b> <code>{no_media}</code>\n",
+                        reply_markup=reply)
+                if message.empty:
+                    no_media += 1
+                    continue
+                elif not message.media:
+                    no_media += 1
+                    continue
+                elif message.media not in [enums.MessageMediaType.VIDEO, enums.MessageMediaType.DOCUMENT]:
+                    no_media += 1
+                    continue
+                media = getattr(message, message.media.value, None)
+                if not media:
+                    no_media += 1
+                    continue
+                if media.mime_type not in ['video/mp4', 'video/x-matroska']:
+                    no_media += 1
+                    continue
+                media.file_type = message.media.value
+                media.caption = message.caption
+                tz = pytz.timezone('Asia/Kolkata')
+                today = datetime.date.today()
+                now = datetime.datetime.now(tz)
+                ttime = now.strftime("%I:%M:%S %p - %d %b, %Y")
+                tru = await check_file(media)
+                if tru == "okda":
                     aynav, vnay = await save_file5(media) 
                     if aynav:
                         total_files += 1
@@ -559,6 +686,84 @@ async def index_files_to_db4(lst_msg_id, chat, msg, bot):
         else:
             await bot.send_message(msg.chat.id, f'<b>✅ Successfully Completed!!</b>\n\n<b>╭ ▸ ETC: </b>{remaining_time_str} ❙ Remaining:</b> <code>{remaining_index}</code>\n<b>├ ▸ Last Updated: <i>{ttime}</i></b>\n<b>╰ ▸ Time Taken: </b>{elapsed_time_str} <b>\n\n<b>╭ ▸ Fetched:</b> <code>{current}</code>\n<b>├ ▸ Saved:</b> <code>{total_files}</code>\n<b>├ ▸ Duplicate:</b> <code>{duplicate}</code>\n<b>╰ ▸ Non:</b> <code>{no_media}</code>\n')
             
+async def index_files_to_db6(lst_msg_id, chat, msg, bot):
+    total_files = 0
+    duplicate = 0
+    no_media = 0
+    fst_msg_id = temp.CURRENT
+    start_time = time.time()
+    remaining_time_str = "N/A"
+    async with lock:
+        try:
+            current = temp.CURRENT
+            tz = pytz.timezone('Asia/Kolkata')
+            today = datetime.date.today()
+            now = datetime.datetime.now(tz)
+            ttime = now.strftime("%I:%M:%S %p - %d %b, %Y")
+            temp.CANCEL = False
+            elapsed_time = 0
+            remaining_index = 0
+            async for message in bot.iter_messages(chat, lst_msg_id, temp.CURRENT):
+                if temp.CANCEL:
+                    await msg.edit(f"<b>❌ Successfully Cancelled!!</b>\n\n<b>├ ▸ Last Updated: <i>{ttime}</i></b>\n\n<b>╭ ▸ Fetched:</b> <code>{current}</code>\n<b>├ ▸ Saved:</b> <code>{total_files}</code>\n<b>├ ▸ Duplicate:</b> <code>{duplicate}</code>\n<b>╰ ▸ Non:</b> <code>{no_media}</code>\n")
+                    break
+                current += 1
+                tz = pytz.timezone('Asia/Kolkata')
+                today = datetime.date.today()
+                now = datetime.datetime.now(tz)
+                ttime = now.strftime("%I:%M:%S %p - %d %b, %Y")
+                if current % 250 == 0:
+                    can = [[InlineKeyboardButton('Cancel', callback_data='index_cancel')]]
+                    reply = InlineKeyboardMarkup(can)
+                    await asyncio.sleep(1)
+                    elapsed_time = time.time() - start_time
+                    remaining_time = (lst_msg_id - current - 1) * elapsed_time / (current - fst_msg_id + 1)
+                    remaining_time_str = get_readable_time(remaining_time)
+                    elapsed_time_str = get_readable_time(elapsed_time)
+                    remaining_index = lst_msg_id - current
+                    await msg.edit_text(
+                        text=f"<b>╭ ▸ ETC: </b>{remaining_time_str} ❙ Remaining:</b> <code>{remaining_index}</code>\n<b>├ ▸ Last Updated: <i>{ttime}</i></b>\n<b>╰ ▸ Time Taken: </b>{elapsed_time_str} <b>\n\n<b>╭ ▸ Fetched:</b> <code>{current}</code>\n<b>├ ▸ Saved:</b> <code>{total_files}</code>\n<b>├ ▸ Duplicate:</b> <code>{duplicate}</code>\n<b>╰ ▸ Non:</b> <code>{no_media}</code>\n",
+                        reply_markup=reply)
+                if message.empty:
+                    no_media += 1
+                    continue
+                elif not message.media:
+                    no_media += 1
+                    continue
+                elif message.media not in [enums.MessageMediaType.VIDEO, enums.MessageMediaType.DOCUMENT]:
+                    no_media += 1
+                    continue
+                media = getattr(message, message.media.value, None)
+                if not media:
+                    no_media += 1
+                    continue
+                if media.mime_type not in ['video/mp4', 'video/x-matroska']:
+                    no_media += 1
+                    continue
+                media.file_type = message.media.value
+                media.caption = message.caption
+                tz = pytz.timezone('Asia/Kolkata')
+                today = datetime.date.today()
+                now = datetime.datetime.now(tz)
+                ttime = now.strftime("%I:%M:%S %p - %d %b, %Y")
+                tru = await check_file(media)
+                if tru == "okda":
+                    aynav, vnay = await save_file6(media) 
+                    if aynav:
+                        total_files += 1
+                    elif vnay == 0:
+                        duplicate += 1
+                    elif vnay == 2:
+                        errors += 1
+                else:
+                    duplicate += 1                
+        except Exception as e:
+            logger.exception(e)
+            return await bot.send_message(msg.chat.id, f'<b>🚫 Error:</b> {e}\n\n<b>╭ ▸ ETC: </b>{remaining_time_str} ❙ Remaining:</b> <code>{remaining_index}</code>\n<b>├ ▸ Last Updated: <i>{ttime}</i></b>\n<b>╰ ▸ Time Taken: </b>{elapsed_time_str} <b>\n\n<b>╭ ▸ Fetched:</b> <code>{current}</code>\n<b>├ ▸ Saved:</b> <code>{total_files}</code>\n<b>├ ▸ Duplicate:</b> <code>{duplicate}</code>\n<b>╰ ▸ Non:</b> <code>{no_media}</code>\n')
+        else:
+            await bot.send_message(msg.chat.id, f'<b>✅ Successfully Completed!!</b>\n\n<b>╭ ▸ ETC: </b>{remaining_time_str} ❙ Remaining:</b> <code>{remaining_index}</code>\n<b>├ ▸ Last Updated: <i>{ttime}</i></b>\n<b>╰ ▸ Time Taken: </b>{elapsed_time_str} <b>\n\n<b>╭ ▸ Fetched:</b> <code>{current}</code>\n<b>├ ▸ Saved:</b> <code>{total_files}</code>\n<b>├ ▸ Duplicate:</b> <code>{duplicate}</code>\n<b>╰ ▸ Non:</b> <code>{no_media}</code>\n')
+            
+
 async def index_files_to_db(lst_msg_id, chat, msg, bot):
     total_files = 0
     duplicate = 0
