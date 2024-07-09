@@ -75,7 +75,7 @@ COMMAND_HAND_LER = ("/")
 
 # MongoDB information
 DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv://maki:maki@cluster0.5zlhzxl.mongodb.net/?retryWrites=true&w=majority")
-DATABASE_URI1 = environ.get('DATABASE_URI1', "mongodb+srv://Maki1:Maki1@cluster0.mvzxwc7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+DATABASE_URI1 = environ.get('DATABASE_URI1', "mongodb+srv://Maki1:Maki1@cluster0.cafwfcz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 DATABASE_URI2 = environ.get('DATABASE_URI2', "mongodb+srv://Maki2:Maki2@cluster0.jqossy3.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 DATABASE_URI3 = environ.get('DATABASE_URI3', "mongodb+srv://Maki3:Maki3@cluster0.lcalwif.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 DATABASE_URI4 = environ.get('DATABASE_URI4', "mongodb+srv://Maki4:Maki4@cluster0.zxpg2fq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
