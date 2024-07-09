@@ -10,7 +10,7 @@ logging.getLogger("imdbpy").setLevel(logging.ERROR)
 
 from pyrogram import Client, __version__, filters
 from pyrogram.raw.all import layer
-from database.ia_filterdb import Media
+from database.ia_filterdb import Media1, Media2, Media3, Media4, Media5, Media6
 from database.users_chats_db import db
 from info import SESSION, API_ID, API_HASH, BOT_TOKEN, LOG_STR, LOG_CHANNEL, PORT
 from utils import temp
@@ -40,7 +40,6 @@ class Bot(Client):
         temp.BANNED_USERS = b_users
         temp.BANNED_CHATS = b_chats
         await super().start()
-        await Media.ensure_indexes()
         me = await self.get_me()
         temp.ME = me.id
         temp.U_NAME = me.username
