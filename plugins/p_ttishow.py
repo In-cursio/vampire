@@ -3,7 +3,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram.errors.exceptions.bad_request_400 import MessageTooLong, PeerIdInvalid
 from info import ADMINS, LOG_CHANNEL, SUPPORT_CHAT, MELCOW_NEW_USERS, MELCOW_IMG, MELCOW_VID, MAIN_CHANNEL, S_GROUP
 from database.users_chats_db import db
-from database.ia_filterdb import Media
+from database.ia_filterdb import Media1, Media2, Media3, Media4, Media5, Media6, db as clientDB, db1 as clientDB1, db2 as clientDB2, db3 as clientDB3, db4 as clientDB4, db5 as clientDB5, db6 as clientDB6
 from utils import get_size, temp, get_settings
 from Script import script
 from pyrogram.errors import ChatAdminRequired
@@ -152,17 +152,32 @@ async def re_enable_chat(bot, message):
 
 @Client.on_message(filters.command('stats') & filters.incoming)
 async def get_ststs(bot, message):
-    rju = await message.reply('Fetching stats..')
-    total_users = await db.total_users_count()
-    totl_chats = await db.total_chat_count()
-    files = await Media.count_documents()
-    size = await db.get_db_size()
-    free = 536870912 - size
-    size = get_size(size)
-    free = get_size(free)
-    await rju.edit(script.STATUS_TXT.format(files, total_users, totl_chats, size, free))
-
-
+    mlz = await message.reply("Loading Details....")
+    tot1 = await Media1.count_documents()
+    tot2 = await Media2.count_documents()
+    tot3 = await Media3.count_documents()
+    tot4 = await Media4.count_documents()
+    tot5 = await Media4.count_documents()
+    tot6 = await Media4.count_documents()
+    total = tot1 + tot2 + tot3 + tot4 + tot5 + tot6
+    users = await db.total_users_count()
+    chats = await db.total_chat_count()
+    stats = await clientDB.command('dbStats')
+    used_dbSize = (stats['dataSize']/(1024*1024))+(stats['indexSize']/(1024*1024))        
+    stats1 = await clientDB1.command('dbStats')
+    used_dbSize1 = (stats1['dataSize']/(1024*1024))+(stats1['indexSize']/(1024*1024))        
+    stats2 = await clientDB2.command('dbStats')
+    used_dbSize2 = (stats2['dataSize']/(1024*1024))+(stats2['indexSize']/(1024*1024))
+    stats3 = await clientDB3.command('dbStats')
+    used_dbSize3 = (stats3['dataSize']/(1024*1024))+(stats3['indexSize']/(1024*1024))  
+    stats4 = await clientDB4.command('dbStats')
+    used_dbSize4 = (stats4['dataSize']/(1024*1024))+(stats4['indexSize']/(1024*1024))  
+    stats5 = await clientDB5.command('dbStats')
+    used_dbSize5 = (stats5['dataSize']/(1024*1024))+(stats5['indexSize']/(1024*1024))  
+    stats6 = await clientDB6.command('dbStats')
+    used_dbSize6 = (stats6['dataSize']/(1024*1024))+(stats6['indexSize']/(1024*1024))        
+    await mlz.edit(text=script.STATUS_TXT.format(total, users, chats, round(used_dbSize, 2), tot1, round(used_dbSize1, 2), tot2, round(used_dbSize2, 2), tot3, round(used_dbSize3, 2), tot4, round(used_dbSize4, 2), tot5, round(used_dbSize5, 2), tot6, round(used_dbSize6, 2)))
+    
 # a function for trespassing into others groups, Inspired by a Vazha
 # Not to be used , But Just to showcase his vazhatharam.
 # @Client.on_message(filters.command('invite') & filters.user(ADMINS))
