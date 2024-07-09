@@ -262,6 +262,10 @@ This module only works for my admins
 
 𝗗𝗕 𝟲
 𝖳𝗈𝗍𝖺𝗅 𝖥𝗂𝗅𝖾𝗌         - {}
+𝖴𝗌𝖾𝖽 𝖲𝗍𝗈𝗋𝖺𝗀𝖾   - {}MB
+
+𝗗𝗕 𝟳
+𝖳𝗈𝗍𝖺𝗅 𝖥𝗂𝗅𝖾𝗌         - {}
 𝖴𝗌𝖾𝖽 𝖲𝗍𝗈𝗋𝖺𝗀𝖾   - {}MB"""
 
     CARB_TXT = """<b>Help</b> : 𝗖𝗔𝗥𝗕𝗢𝗡
