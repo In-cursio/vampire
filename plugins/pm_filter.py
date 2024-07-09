@@ -1004,7 +1004,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         total = tot1 + tot2 + tot3 + tot4 + tot5 + tot6
         users = await db.total_users_count()
         chats = await db.total_chat_count()
-         stats = await clientDB.command('dbStats')
+        stats = await clientDB.command('dbStats')
         used_dbSize = (stats['dataSize']/(1024*1024))+(stats['indexSize']/(1024*1024))        
         stats1 = await clientDB1.command('dbStats')
         used_dbSize1 = (stats1['dataSize']/(1024*1024))+(stats1['indexSize']/(1024*1024))        
@@ -1039,7 +1039,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         total = tot1 + tot2 + tot3 + tot4 + tot5 + tot6
         users = await db.total_users_count()
         chats = await db.total_chat_count()
-         stats = await clientDB.command('dbStats')
+        stats = await clientDB.command('dbStats')
         used_dbSize = (stats['dataSize']/(1024*1024))+(stats['indexSize']/(1024*1024))        
         stats1 = await clientDB1.command('dbStats')
         used_dbSize1 = (stats1['dataSize']/(1024*1024))+(stats1['indexSize']/(1024*1024))        
