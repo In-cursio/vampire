@@ -228,8 +228,8 @@ async def start(client, message):
         file_id=file_id,
         caption=f_caption,
         reply_markup=InlineKeyboardMarkup([
-                    [InlineKeyboardButton('❤️‍🔥 ᴍᴀɪɴ ᴄʜᴀɴɴᴇʟ ❤️‍🔥', url=(MAIN_CHANNEL)) ],
-            [InlineKeyboardButton('🥇 ᴀɴɪᴍᴇ 🥇', url="t.me/pirate_flicks") ] ] ) )
+                    [InlineKeyboardButton('🎗️ ᴍᴀɪɴ ᴄʜᴀɴɴᴇʟ 🎗️', url=(MAIN_CHANNEL)) ],
+            [InlineKeyboardButton('✨ ᴀɴɪᴍᴇ ✨', url="https://t.me/+ZfbRcSvwIxc1MTU1") ] ] ) )
         
                     
 
