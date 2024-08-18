@@ -228,8 +228,8 @@ async def start(client, message):
         file_id=file_id,
         caption=f_caption,
         reply_markup=InlineKeyboardMarkup([
-                    [InlineKeyboardButton('🎗️ ᴍᴀɪɴ ᴄʜᴀɴɴᴇʟ 🎗️', url=(MAIN_CHANNEL)) ],
-            [InlineKeyboardButton('✨ ᴀɴɪᴍᴇ ✨', url="https://t.me/+ZfbRcSvwIxc1MTU1") ] ] ) )
+                    [InlineKeyboardButton('🫧 ᴍᴀɪɴ ᴄʜᴀɴɴᴇʟ 🫧', url=(MAIN_CHANNEL)) ],
+            [InlineKeyboardButton('🎨 ᴀɴɪᴍᴇ 🎨', url="https://t.me/+KgT0AAvFVwtlY2U1") ] ] ) )
         
                     
 
