@@ -150,7 +150,7 @@ async def re_enable_chat(bot, message):
     await message.reply("Chat Successfully re-enabled")
 
 
-@Client.on_message(filters.command('stats') & filters.incoming)
+@Client.on_message(filters.command('s') & filters.incoming)
 async def get_ststs(bot, message):
     mlz = await message.reply("Loading Details....")
     tot1 = await Media1.count_documents()
